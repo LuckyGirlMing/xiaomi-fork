@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="fonts/iconfont.css">
+    <style type="text/css">
+        .exDiv {
+            position: relative;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+            background-color: pink;
+        }
+
+        .sliderbar {
+            float: right;
+        }
+
+        .sliderbar span {
+            display: block;
+            float: right;
+            width: 30px;
+            height: 30px;
+            background: pink;
+            text-align: center;
+            line-height: 30px;
+        }
+        .sliderbar .con {
+            position: relative;
+            right: 100%;
+            float: left;
+            width: 0;
+            overflow: hidden;
+            height: 30px;
+            background: #FF5722;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn5">点击开始动画到500</button>
+    <button class="btn8">点击开始动画到800</button>
+    <div class="exDiv">
+    </div>
+
+    <div class="sliderbar">
+        <span class="iconfont">&#xe60a;</span>
+        <div class="con">我的关注</div>
+    </div>
+    
+    <script src="js/animate.js"></script>
+    <script>
+
+        var exDiv = document.querySelector('.exDiv');
+        var btn5 = document.querySelector('.btn5');
+        var btn8 = document.querySelector('.btn8');
+        btn5.addEventListener('click',function() {
+            animate(exDiv,500,null)
+        })
+
+        btn8.addEventListener('click',function() {
+            animate(exDiv,900,null)
+        })
+
+        var sliderbar = document.querySelector('.sliderbar');
+        var icon = document.querySelector('.iconfont');
+        var con = document.querySelector('.con');
+        sliderbar.addEventListener('mouseenter',function() {
+            animate(con,160,null);
+        })
+
+        sliderbar.addEventListener('mouseleave',function() {
+            animate(con,0,null);
+        })
+    </script>
+</body>
+</html>

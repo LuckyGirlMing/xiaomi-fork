@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米官网项目实战01</title>
+    <link rel="stylesheet" href="fonts/iconfont.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style type="text/css">
+
+    </style>
+
+    
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+
+    window.addEventListener('load', function () {
+            var shop = document.querySelector('.h_m_r_shop');
+            var hideMsg = shop.children[shop.children.length - 1];
+            // shop.onmouseover = function () {
+            //     hideMsg.style.display = 'block';
+            // }
+
+            // shop.onmouseout = function () {
+            //     hideMsg.style.display = 'none';
+            // }
+
+            shop.addEventListener('mouseover', function () {
+                hideMsg.style.display = 'block';
+            })
+
+            shop.addEventListener('mouseout', function () {
+                hideMsg.style.display = 'none';
+            })
+
+            //鼠标滑动到nav-item上，将n_w_product展示
+            var navItem = document.querySelector('.n_main');
+            var items = navItem.querySelectorAll('.nav-item');
+            var product = document.querySelector('#n_w_product');
+            var productMain = document.querySelector('.n_w_p_main');
+            var contentList = productMain.children;
+            for (var i = 0; i < items.length; i++) {
+                items[i].setAttribute('data-index', i);
+                items[i].addEventListener('mouseover', function () {
+                    product.style.display = 'block';
+                    var dataIndex = this.getAttribute('data-index');
+                    for (var i = 0; i < items.length; i++) {
+                        contentList[i].style.display = 'none';
+                    }
+                    contentList[dataIndex].style.display = 'block';
+                });
+
+                product.addEventListener('mouseover', function () {
+                    this.style.display = 'block';
+                })
+
+                product.addEventListener('mouseout', function () {
+                    this.style.display = 'none';
+                })
+
+                items[i].addEventListener('mouseout', function () {
+                    product.style.display = 'none';
+                });
+
+
+                //search input获取焦点
+                var search = document.querySelector('.n_search');
+                var tempInput = document.querySelector('.n_s_input');
+                var hideDiv = tempInput.children[tempInput.children.length - 1];
+                tempInput.children[0].onfocus = function () {
+                    search.className = 'n_search focus';
+                    hideDiv.style.display = 'block';
+                };
+
+                tempInput.children[0].onblur = function () {
+                    search.className = 'n_search';
+                    hideDiv.style.display = 'none';
+                };
+
+            }
+
+            var bannerNav = document.querySelector('#b_nav');
+            var list = bannerNav.querySelector('ul');
+            var navItems = list.children;
+
+            //给ul添加鼠标事件，使用mouseover的冒泡属性
+            list.addEventListener('mouseover', function (e) {
+                var hideDiv  = null;
+                if(e.target.parentNode.localName === 'li') {
+                    hideDiv = e.target.parentNode.children;
+                } else if (e.target.parentNode.localName === 'a') {
+                    hideDiv = e.target.parentNode.parentNode.children;
+                }
+                 
+                var navHideDiv = hideDiv[hideDiv.length - 1];
+                navHideDiv.style.display = 'block';
+            });
+
+            list.addEventListener('mouseout', function (e) {
+                var hideDiv  = null;
+                if(e.target.parentNode.localName === 'li') {
+                    hideDiv = e.target.parentNode.children;
+                } else if (e.target.parentNode.localName === 'a') {
+                    hideDiv = e.target.parentNode.parentNode.children;
+                }
+                var navHideDiv = hideDiv[hideDiv.length - 1];
+                navHideDiv.style.display = 'none';
+            });
+
+            // for (var i = 0; i < navItems.length; i++) {
+            //     navItems[i].addEventListener('mouseover', function () {
+            //         var navHideDiv = this.children[this.children.length - 1];
+            //         navHideDiv.style.display = 'block';
+            //     });
+
+            //     navItems[i].addEventListener('mouseout', function () {
+            //         var navHideDiv = this.children[this.children.length - 1];
+            //         navHideDiv.style.display = 'none';
+            //     });
+            // }
+        })
+    
+</script>
+</head>
+<body>
+    <!--header start-->
+    <div id="header">
+        <div id="h_main" class="w">
+            <div class="h_m_left">
+                <ul> 
+                    <li><a href="#">小米商城</a></li>
+                    <li></li>
+                    <li><a href="#">MIUI</a></li>
+                    <li></li>
+                    <li><a href="#">IoT</a></li>
+                    <li></li>
+                    <li><a href="#">云服务</a></li>
+                    <li></li>
+                    <li><a href="#">金融</a></li>
+                    <li></li>
+                    <li><a href="#">有品</a></li>
+                    <li></li>
+                    <li><a href="#">小爱开放平台</a></li>
+                    <li></li>
+                    <li><a href="#">企业团购</a></li>
+                </ul>
+            </div>
+            <div class="h_m_right">
+                <ul>
+                    <li><a href="#">登录</a></li>
+                    <li></li>
+                    <li><a href="#">注册</a></li>
+                    <li></li>
+                    <li> <a href="#">消息通知</a></li>
+                </ul>
+                <div class="h_m_r_shop">
+                    <i class="iconfont">&#xe66d;</i>
+                    <span class="car">购物车（<span id="num">0</span>）</span>
+					<div class="h_m_r_s_hide">
+						购物车中还没有商品，赶紧选购吧！
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--header end-->
+
+    <!--n_wrap start-->
+    <div id="n_wrap">
+        <div id="nav" class="w">
+            <div class="n_logo">
+				<a href="#"></a>
+			</div>
+			<div class="n_main">
+				<ul>
+					<li class="nav-item"><a href="#">小米手机</a></li>
+					<li class="nav-item"><a href="#">红米</a></li>
+					<li class="nav-item"><a href="#">平板 · 笔记本</a></li>
+					<li class="nav-item"><a href="#">电视</a></li>
+					<li class="nav-item"><a href="#">盒子 · 影音</a></li>
+					<li class="nav-item"><a href="#">路由器</a></li>
+					<li><a href="#">智能硬件</a></li>
+					<li><a href="#">服务</a></li>
+					<li><a href="#">社区</a></li>
+				</ul>
+			</div>
+			<div class="n_search">
+				<div class="n_s_input">
+                    <input type="text">
+                    <div class="n_s_hide">
+                        <ul>
+							<li><a href="http://www.baidu.com">小米手机<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+							<li><a href="#">空气净化器<span>约有11件</span></a></li>
+						</ul>
+                    </div>
+				</div>
+				<div class="n_s_find">
+					<i class="iconfont">&#xe60c;</i>
+				</div>
+			</div>
+        </div>
+
+        <!--n_w_product start-->
+		<div id="n_w_product">
+            <div class="n_w_p_main w">
+                <ul style="display:block">
+					<li>
+						<a href="" class="p_img"><img src="images/nav/xiaomi01.jpg"></a>
+						<a href="" class="p_title">小米Max</a>
+                        <p class="p_price">1299元起</p>
+                        <div class="p_border"></div>
+                    </li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/xiaomi02.jpg"></a>
+						<a href="" class="p_title">小米手机5</a>
+                        <p class="p_price">1999元起</p>
+                        <div class="p_border"></div>
+                    </li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/xiaomi03.jpg"></a>
+						<a href="" class="p_title">小米手机4c</a>
+                        <p class="p_price">1099元</p>
+					</li>
+				</ul>
+				<ul >
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hongmi01.jpg"></a>
+						<a href="" class="p_title">红米Pro</a>
+						<p class="p_price">1299元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hongmi02.jpg"></a>
+						<a href="" class="p_title">红米Note 3</a>
+						<p class="p_price">1999元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hongmi03.jpg"></a>
+						<a href="" class="p_title">红米手机3S</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hongmi04.jpg"></a>
+						<a href="" class="p_title">红米手机3</a>
+						<p class="p_price">1099元</p>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/pingban01.jpg"></a>
+						<a href="" class="p_title">小米平板2 16GB</a>
+						<p class="p_price">1299元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/pingban02.jpg"></a>
+						<a href="" class="p_title">小米平板2 64GB</a>
+						<p class="p_price">1999元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/pingban03.jpg"></a>
+						<a href="" class="p_title">小米平板2 64GB Windows版</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/pingban04.jpg"></a>
+						<a href="" class="p_title">小米笔记本Air 12.5"</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/pingban05.jpg"></a>
+						<a href="" class="p_title">小米笔记本Air 13.3"</a>
+						<p class="p_price">1099元</p>
+					</li>
+				</ul>
+				<ul >
+					<li>
+						<a href="" class="p_img"><img src="images/nav/dianshi01.jpg"></a>
+						<a href="" class="p_title">小米电视3S 43英寸</a>
+						<p class="p_price">1299元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/dianshi02.jpg"></a>
+						<a href="" class="p_title">小米电视3S 48英寸</a>
+						<p class="p_price">1999元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/dianshi03.jpg"></a>
+						<a href="" class="p_title">小米电视3 55英寸</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/dianshi04.jpg"></a>
+						<a href="" class="p_title">小米电视3 60英寸</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/dianshi05.jpg"></a>
+						<a href="" class="p_title">小米电视3S 65英寸 曲面</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/dianshi06.jpg"></a>
+						<a href="" class="p_title">小米电视3 70英寸</a>
+						<p class="p_price">1099元</p>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hezi01.png"></a>
+						<a href="" class="p_title">小米盒子mini版</a>
+						<p class="p_price">1299元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hezi02.png"></a>
+						<a href="" class="p_title">小米电视3S 48英寸</a>
+						<p class="p_price">1999元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hezi03.jpg"></a>
+						<a href="" class="p_title">小米电视3 55英寸</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hezi04.jpg"></a>
+						<a href="" class="p_title">小米电视3 60英寸</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hezi05.jpg"></a>
+						<a href="" class="p_title">小米电视3S 65英寸 曲面</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/hezi06.jpg"></a>
+						<a href="" class="p_title">小米电视3 70英寸</a>
+						<p class="p_price">1099元</p>
+					</li>
+				</ul>
+				<ul >
+					<li>
+						<a href="" class="p_img"><img src="images/nav/luyouqi01.jpg"></a>
+						<a href="" class="p_title">小米盒子mini版</a>
+						<p class="p_price">1299元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/luyouqi02.png"></a>
+						<a href="" class="p_title">小米电视3S 48英寸</a>
+						<p class="p_price">1999元起</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/luyouqi03.jpg"></a>
+						<a href="" class="p_title">小米电视3 55英寸</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/luyouqi04.jpg"></a>
+						<a href="" class="p_title">小米电视3 60英寸</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/luyouqi05.jpg"></a>
+						<a href="" class="p_title">小米电视3S 65英寸 曲面</a>
+						<p class="p_price">1099元</p>
+						<div class="p_border"></div>
+					</li>
+					<li>
+						<a href="" class="p_img"><img src="images/nav/luyouqi06.jpg"></a>
+						<a href="" class="p_title">小米电视3 70英寸</a>
+						<p class="p_price">1099元</p>
+					</li>
+				</ul>
+            </div>
+        </div>
+    </div>
+    <!--n_wrap end-->
+
+    <div id="banner"  class="w">
+		<!--b_main start-->
+		<div id="b_main">
+			<div class="b_m_pic">
+				<ul>
+					<li style="display:block;"><a href=""><img src="images/banner/1.jpg" alt=""></a></li>
+					<li style="display:none;"><a href=""><img src="images/banner/2.jpg" alt=""></a></li>
+					<li style="display:none;"><a href=""><img src="images/banner/3.jpg" alt=""></a></li>
+					<li style="display:none;"><a href=""><img src="images/banner/4.jpg" alt=""></a></li>
+					<li style="display:none;"><a href=""><img src="images/banner/5.jpg" alt=""></a></li>
+				</ul>
+			</div>
+			<div class="b_m_btn">
+				<div class="b_m_b_left"></div>
+				<div class="b_m_b_right"></div>
+			</div>
+			<div class="b_m_tab">
+				<ul><li class="click"></li><li></li><li></li><li></li><li></li></ul>
+			</div>
+		</div>
+        <!--b_main end-->
+        
+        <!--b_nav start-->
+		<div id="b_nav">
+			<ul>
+				<li>
+					<a href="">手机 平板 电话卡<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide">
+						<ul>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/1.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/2.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/3.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/4.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/5.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/6.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+						</ul>
+						<ul>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/7.png" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/8.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/9.jpg" alt=""><span>小米手机5</span></a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/10.jpg" alt=""><span>小米手机5</span></a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/11.jpg" alt=""><span>小米手机5</span></a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/first/12.jpg" alt=""><span>小米手机5</span></a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="">笔记本<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:256px">
+						<ul>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/second/1.jpg" alt=""><span>小米手机5</span></a>
+								<a href="" class="b_n_h_xg">选购</a>
+							</li>
+							<li>
+								<a href="" class="b_n_h_img"><img src="images/banner/nav2/second/2.jpg" alt=""><span>小米手机5</span></a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="">电视 盒子<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:768px">
+						3
+					</div>
+				</li>
+				<li>
+					<a href="">路由器 智能硬件<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:768px">
+						4
+					</div>
+				</li>
+				<li>
+					<a href="">移动电源 电池 插线板<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:512px">
+						5
+					</div>
+				</li>
+				<li>
+					<a href="">耳机 音箱<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:768px">
+						6
+					</div>
+				</li>
+				<li>
+					<a href="">保护套 后盖<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:256px">
+						7
+					</div>
+				</li>
+				<li>
+					<a href="">贴膜 其他配件<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:256px">
+						8
+					</div>
+				</li>
+				<li>
+					<a href="">米兔 服装<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:256px">
+						9
+					</div>
+				</li>
+				<li>
+					<a href="">箱包 其他周边<span class="iconfont">&#xe60a;</span></a>
+					<div class="b_n_hide" style="width:256px">
+						10
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!--b_nav end-->
+    </div>
+</body>
+
+</html>
